@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using System.Xml.Serialization;
 
 namespace JobSearchAPI
 {
+    [XmlRoot(ElementName = "JobSearchResult", IsNullable = true)]
     public class CareerBuilderJobPosting
     {
         public string Company { get; set; }
@@ -19,9 +21,9 @@ namespace JobSearchAPI
         public string JobDetailsURL { get; set; }
         public string JobServiceURL { get; set; }
         public string Location { get; set; }
-        [JsonProperty("LocationLatitude")]
+        [XmlElement("LocationLatitude")]
         public double Latitude { get; set; }
-        [JsonProperty("LocationLongitude")]
+        [XmlElement("LocationLongitude")]
         public double Longitude { get; set; }
         public string PostedDate { get; set; }
         public string Pay { get; set; }

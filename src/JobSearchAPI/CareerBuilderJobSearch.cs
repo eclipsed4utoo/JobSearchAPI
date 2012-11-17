@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 using System.Net;
 using Newtonsoft.Json;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace JobSearchAPI
 {
     public class CareerBuilderJobSearch : JobSearchBase
     {
         private string _developerKey = string.Empty;
+        private WebClient client = null;
 
         public override string WebServiceURL
         {
@@ -34,6 +38,7 @@ namespace JobSearchAPI
                 throw new ArgumentException("Developer Key is empty.", "developerKey");
 
             _developerKey = developerKey;
+            client = new WebClient();
         }
 
         public Task<IEnumerable<CareerBuilderJobPosting>> GetJobsAsync()
@@ -42,17 +47,55 @@ namespace JobSearchAPI
             {
                 List<CareerBuilderJobPosting> jobs = new List<CareerBuilderJobPosting>();
 
-                WebClient client = new WebClient();
-                var data = client.DownloadString(this.WebServiceURL);
+                var data = client.DownloadString(CreateURL());
 
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(data);
-                string json = JsonConvert.SerializeXmlNode(doc);
-
+                XDocument doc = XDocument.Parse(data);
                 
+                var results = (from c in doc.Root.Element("Results").Descendants("JobSearchResult")
+                              select c).ToList();
+
+                foreach (var result in results)
+                {   
+                    jobs.Add(Deserialize<CareerBuilderJobPosting>(result.ToString()));
+                }
 
                 return jobs;
             });
+        }
+
+        private string CreateURL()
+        {
+            string url = this.WebServiceURL;
+
+            url += string.Format("?{0}={1}", CareerBuilderURLConstants.DEVELOPER_KEY, _developerKey);
+
+            if (!string.IsNullOrWhiteSpace(this.Country))
+                url += string.Format("&{0}={1}", CareerBuilderURLConstants.COUNTRY_CODE, this.Country);
+
+            if (!string.IsNullOrWhiteSpace(this.Location))
+                url += string.Format("&{0}={1}", CareerBuilderURLConstants.LOCATION, this.Location);
+
+            return url;
+        }
+
+        private T Deserialize<T>(string xml)
+        {
+            try
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                T serializedData;
+
+                using (Stream stream = new MemoryStream(Encoding.ASCII.GetBytes(xml)))
+                {
+                    serializedData = (T)serializer.Deserialize(stream);
+                }
+
+                return serializedData;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }
