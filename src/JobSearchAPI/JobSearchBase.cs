@@ -7,6 +7,6 @@ namespace JobSearchAPI
 {
     public abstract class JobSearchBase
     {
-        public abstract string WebServiceURL { get; }
+        public abstract string JobSearchWebServiceURL { get; }
     }
 }

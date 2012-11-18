@@ -17,7 +17,7 @@ namespace JobSearchAPI
         private string _developerKey = string.Empty;
         private WebClient client = null;
 
-        public override string WebServiceURL
+        public override string JobSearchWebServiceURL
         {
             get { return "http://api.careerbuilder.com/v1/jobsearch"; }
         }
@@ -36,6 +36,39 @@ namespace JobSearchAPI
         {
             get { return "http://api.careerbuilder.com/v1/employeetypes"; }
         }
+
+        /// <summary>
+        /// If true, the search will not be constrained by CountryCode or HostSite.
+        /// </summary>
+        public bool SearchAllCountries { get; set; }
+
+        /// <summary>
+        /// Filters jobs to match criteria for relocation. If not supplied, results returned will be results
+        /// with 'null' as their relocation data.
+        /// </summary>
+        public bool RelocateJobs { get; set; }
+
+        /// <summary>
+        /// The search radius size (in miles) around a specified location. 
+        /// Must be one of: 5, 10, 20, 30, 50, 100, 150. If no value is provided, defaults to 30.
+        /// </summary>
+        public int Radius { get; set; }
+
+        /// <summary>
+        /// Must be one of: 1, 3, 7, or 30. If no value is provided, defaults to 30. 
+        /// Filters the results list to contain only jobs posted with the provided number of days.
+        /// </summary>
+        public int PostedWithinDays { get; set; }
+
+        /// <summary>
+        /// Sets page size.  Defaults to 25.
+        /// </summary>
+        public int PerPage { get; set; }
+
+        /// <summary>
+        /// Retrieves a specific page of results
+        /// </summary>
+        public int PageNumber { get; set; }
 
         /// <summary>
         /// Sets the ordering of the results.  Defaults to Relevance.  Use CareerBuilderSortFields for valid values.
@@ -167,7 +200,8 @@ namespace JobSearchAPI
             {
                 List<CareerBuilderJobPosting> jobs = new List<CareerBuilderJobPosting>();
 
-                var data = client.DownloadString(CreateURL());
+                var url = CreateURL();
+                var data = client.DownloadString(url);
 
                 XDocument doc = XDocument.Parse(data);
                 
@@ -269,37 +303,48 @@ namespace JobSearchAPI
 
         private string CreateURL()
         {
-            string url = this.WebServiceURL;
+            string url = this.JobSearchWebServiceURL;
 
             url += string.Format("?{0}={1}", CareerBuilderURLConstants.DEVELOPER_KEY, _developerKey);
 
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COUNTRY_CODE, this.Country);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.LOCATION, this.Location);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.BOOLEAN_OPERATOR, this.BooleanOperator);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.CATEGORY, this.Category);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANY_DID, this.CompanyDID);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANY_DID_CSV, this.CompanyDIDCSV);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANY_NAME, this.CompanyName);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.EDUCATION_CODE, this.EducationCode);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.EMP_TYPE, this.EmployeeType);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_CATEGORY, this.FacetCategory);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_CITY, this.FacetCity);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_CITY_STATE, this.FacetCityState);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_COMPANY, this.FacetCompany);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_STATE, this.FacetState);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.USE_FACETS, this.UseFacets.ToString());
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.INCLUDE_COMPANY_CHILDREN, this.IncludeCompanyChildren.ToString());
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.JOB_TITLE, this.JobTitle);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.KEYWORDS, this.Keywords);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.ORDER_BY, this.OrderBy);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.ORDER_DIRECTION, this.OrderDirection);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COUNTRY_CODE, this.Country);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.LOCATION, this.Location);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.BOOLEAN_OPERATOR, this.BooleanOperator);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.CATEGORY, this.Category);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_DID, this.CompanyDID);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_DID_CSV, this.CompanyDIDCSV);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_NAME, this.CompanyName);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.EDUCATION_CODE, this.EducationCode);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.EMP_TYPE, this.EmployeeType);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CATEGORY, this.FacetCategory);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CITY, this.FacetCity);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CITY_STATE, this.FacetCityState);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_COMPANY, this.FacetCompany);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_STATE, this.FacetState);
+            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.USE_FACETS, this.UseFacets);
+            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.INCLUDE_COMPANY_CHILDREN, this.IncludeCompanyChildren);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.JOB_TITLE, this.JobTitle);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.KEYWORDS, this.Keywords);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_BY, this.OrderBy);
+            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_DIRECTION, this.OrderDirection);
+            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.PER_PAGE, this.PerPage);
+            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.PAGE_NUMBER, this.PageNumber);
+            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.POSTED_WITHIN, this.PostedWithinDays);
+            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.RADIUS, this.Radius);
+            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.RELOCATE_JOBS, this.RelocateJobs);
+            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.SEARCH_ALL_COUNTRIES, this.SearchAllCountries);
 
             return url;
         }
 
-        private void ConcatenateURLParameters(ref string url, string parameterName, string parameterValue)
+        private void ConcatenateURLParameters<T>(ref string url, string parameterName, T parameterValue)
         {
-            if (string.IsNullOrWhiteSpace(parameterValue))
+            var defaultValue = default(T);
+
+            if (typeof(string) == typeof(T))
+                defaultValue = (T)Convert.ChangeType(string.Empty, typeof(T));
+
+            if (defaultValue == null || parameterValue == null || parameterValue.Equals(defaultValue))
                 return;
 
             url = string.Format("{0}&{1}={2}", url, parameterName, parameterValue);

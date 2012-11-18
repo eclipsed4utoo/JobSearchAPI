@@ -29,6 +29,12 @@ namespace JobSearchAPI
         public static readonly string KEYWORDS = "Keywords";
         public static readonly string ORDER_BY = "OrderBy";
         public static readonly string ORDER_DIRECTION = "OrderDirection";
+        public static readonly string PAGE_NUMBER = "PageNumber";
+        public static readonly string PER_PAGE = "PerPage";
+        public static readonly string POSTED_WITHIN = "PostedWithin";
+        public static readonly string RADIUS = "Radius";
+        public static readonly string RELOCATE_JOBS = "RelocateJobs";
+        public static readonly string SEARCH_ALL_COUNTRIES = "SearchAllCountries";
     }
 
     public class CareerBuilderBooleanOperators
