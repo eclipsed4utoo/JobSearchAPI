@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CareerBuilderApplicationQuestion.cs" />
+    <Compile Include="CareerBuilderApplicationRequirements.cs" />
+    <Compile Include="CareerBuilderBlankApplication.cs" />
     <Compile Include="CareerBuilderJobDetail.cs" />
     <Compile Include="CareerBuilderJobPosting.cs" />
     <Compile Include="CareerBuilderJobSearch.cs" />

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using System.Threading.Tasks;
+using System.Net;
+using System.Xml.Linq;
 
 namespace JobSearchAPI
 {
@@ -62,5 +65,45 @@ namespace JobSearchAPI
         public CareerBuilderPay PayCommission { get; set; }
         public CareerBuilderPay PayBonus { get; set; }
         public CareerBuilderPay PayOther { get; set; }
+
+        private WebClient client;
+
+        public Task<CareerBuilderBlankApplication> GetBlankApplicationAsync()
+        {
+            if (string.IsNullOrWhiteSpace(this.BlankApplicationServiceURL))
+                throw new InvalidOperationException("No Blank Application Service URL.");
+
+            return Task.Factory.StartNew<CareerBuilderBlankApplication>(() =>
+            {
+                if (client == null)
+                    client = new WebClient();
+
+                var xmlData = client.DownloadString(this.BlankApplicationServiceURL);
+                XDocument doc = XDocument.Parse(xmlData);
+                var element = doc.Root.Element("BlankApplication");
+
+                // if element is blank, job does not accept online applications
+                if (element == null)
+                    throw new ApplicationException("Job does not accept online applications");
+
+                var application = XmlHelper.Deserialize<CareerBuilderBlankApplication>(element.ToString());
+
+                var questions = element.Element("Questions");
+                if (questions != null)
+                {
+                    application.Questions = new List<CareerBuilderApplicationQuestion>();
+
+                    var qs = (from c in questions.Descendants("Question")
+                             select c).ToList();
+
+                    foreach (var question in qs)
+                    {
+                        application.Questions.Add(XmlHelper.Deserialize<CareerBuilderApplicationQuestion>(question.ToString()));
+                    }
+                }
+
+                return application;
+            });
+        }
     }
 }
