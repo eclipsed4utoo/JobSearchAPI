@@ -43,12 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CareerBuilderJobDetail.cs" />
     <Compile Include="CareerBuilderJobPosting.cs" />
     <Compile Include="CareerBuilderJobSearch.cs" />
+    <Compile Include="CareerBuilderPay.cs" />
     <Compile Include="CareerBuilderURLConstants.cs" />
     <Compile Include="Countries.cs" />
     <Compile Include="JobSearchBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

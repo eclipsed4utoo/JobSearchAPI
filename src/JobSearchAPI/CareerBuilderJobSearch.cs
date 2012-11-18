@@ -56,7 +56,7 @@ namespace JobSearchAPI
 
                 foreach (var result in results)
                 {   
-                    jobs.Add(Deserialize<CareerBuilderJobPosting>(result.ToString()));
+                    jobs.Add(XmlHelper.Deserialize<CareerBuilderJobPosting>(result.ToString()));
                 }
 
                 return jobs;
@@ -76,26 +76,6 @@ namespace JobSearchAPI
                 url += string.Format("&{0}={1}", CareerBuilderURLConstants.LOCATION, this.Location);
 
             return url;
-        }
-
-        private T Deserialize<T>(string xml)
-        {
-            try
-            {
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
-                T serializedData;
-
-                using (Stream stream = new MemoryStream(Encoding.ASCII.GetBytes(xml)))
-                {
-                    serializedData = (T)serializer.Deserialize(stream);
-                }
-
-                return serializedData;
-            }
-            catch
-            {
-                throw;
-            }
         }
     }
 }
