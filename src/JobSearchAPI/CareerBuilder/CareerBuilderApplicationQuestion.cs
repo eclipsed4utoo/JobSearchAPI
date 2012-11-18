@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace JobSearchAPI
+namespace JobSearchAPI.CareerBuilder
 {
     [XmlRoot(ElementName = "Question", IsNullable = true)]
     public class CareerBuilderApplicationQuestion

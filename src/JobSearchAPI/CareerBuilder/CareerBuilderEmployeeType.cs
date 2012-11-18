@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace JobSearchAPI
+namespace JobSearchAPI.CareerBuilder
 {
     [XmlRoot(ElementName = "EmployeeType", IsNullable = true)]
     public class CareerBuilderEmployeeType : CareerBuilderCode

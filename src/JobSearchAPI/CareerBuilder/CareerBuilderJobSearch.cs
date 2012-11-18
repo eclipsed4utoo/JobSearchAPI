@@ -10,7 +10,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.IO;
 
-namespace JobSearchAPI
+namespace JobSearchAPI.CareerBuilder
 {
     public class CareerBuilderJobSearch : JobSearchBase
     {

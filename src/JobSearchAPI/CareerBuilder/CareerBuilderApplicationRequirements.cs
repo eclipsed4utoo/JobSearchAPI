@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace JobSearchAPI
+namespace JobSearchAPI.CareerBuilder
 {
     public class CareerBuilderApplicationRequirements
     {

@@ -44,19 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CareerBuilderApplicationQuestion.cs" />
-    <Compile Include="CareerBuilderApplicationRequirements.cs" />
-    <Compile Include="CareerBuilderBlankApplication.cs" />
-    <Compile Include="CareerBuilderCategory.cs" />
-    <Compile Include="CareerBuilderCode.cs" />
-    <Compile Include="CareerBuilderEducationCode.cs" />
-    <Compile Include="CareerBuilderEmployeeType.cs" />
-    <Compile Include="CareerBuilderJobDetail.cs" />
-    <Compile Include="CareerBuilderJobPosting.cs" />
-    <Compile Include="CareerBuilderJobSearch.cs" />
-    <Compile Include="CareerBuilderPay.cs" />
-    <Compile Include="CareerBuilderURLConstants.cs" />
-    <Compile Include="Countries.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderApplicationQuestion.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderApplicationRequirements.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderBlankApplication.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderCategory.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderCode.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderEducationCode.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderEmployeeType.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderJobDetail.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderJobPosting.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderJobSearch.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderPay.cs" />
+    <Compile Include="CareerBuilder\CareerBuilderURLConstants.cs" />
     <Compile Include="JobSearchBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlHelper.cs" />

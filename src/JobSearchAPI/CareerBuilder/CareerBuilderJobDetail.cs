@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Xml.Linq;
 
-namespace JobSearchAPI
+namespace JobSearchAPI.CareerBuilder
 {
     [XmlRoot(ElementName = "Job", IsNullable = true)]
     public class CareerBuilderJobDetail
