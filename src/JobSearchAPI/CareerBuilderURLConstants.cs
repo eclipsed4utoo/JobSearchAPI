@@ -13,23 +13,45 @@ namespace JobSearchAPI
         public static readonly string COUNTRY_CODE = "CountryCode";
         public static readonly string LOCATION = "Location";
         public static readonly string CATEGORY = "Category";
-        public static readonly string COMPANYDID = "CompanyDID";
-        public static readonly string COMPANYDIDCSV = "CompanyDIDCSV";
-        public static readonly string COMPANYNAME = "CompanyName";
-        public static readonly string EDUCATIONCODE = "EducationCode";
-        public static readonly string EMPTYPE = "EmpType";
-        public static readonly string FACETCOMPANY = "FacetCompany";
-        public static readonly string FACETCATEGORY = "FacetCategory";
-        public static readonly string FACETCITY = "FacetCity";
-        public static readonly string FACETSTATE = "FacetState";
-        public static readonly string FACETCITYSTATE = "FacetCityState";
-        public static readonly string USEFACETS = "UseFacets";
+        public static readonly string COMPANY_DID = "CompanyDID";
+        public static readonly string COMPANY_DID_CSV = "CompanyDIDCSV";
+        public static readonly string COMPANY_NAME = "CompanyName";
+        public static readonly string EDUCATION_CODE = "EducationCode";
+        public static readonly string EMP_TYPE = "EmpType";
+        public static readonly string FACET_COMPANY = "FacetCompany";
+        public static readonly string FACET_CATEGORY = "FacetCategory";
+        public static readonly string FACET_CITY = "FacetCity";
+        public static readonly string FACET_STATE = "FacetState";
+        public static readonly string FACET_CITY_STATE = "FacetCityState";
+        public static readonly string USE_FACETS = "UseFacets";
+        public static readonly string INCLUDE_COMPANY_CHILDREN = "IncludeCompanyChildren";
+        public static readonly string JOB_TITLE = "JobTitle";
+        public static readonly string KEYWORDS = "Keywords";
+        public static readonly string ORDER_BY = "OrderBy";
+        public static readonly string ORDER_DIRECTION = "OrderDirection";
     }
 
     public class CareerBuilderBooleanOperators
     {
         public static readonly string AND = "AND";
         public static readonly string OR = "OR";
+    }
+
+    public class CareerBuilderSortFields
+    {
+        public static readonly string DATE = "Date";
+        public static readonly string PAY = "Pay";
+        public static readonly string TITLE = "Title";
+        public static readonly string COMPANY = "Company";
+        public static readonly string DISTANCE = "Distance";
+        public static readonly string LOCATION = "Location";
+        public static readonly string RELEVANCE = "Relevance";
+    }
+
+    public class CareerBuilderSortDirection
+    {
+        public static readonly string ASCENDING = "ASC";
+        public static readonly string DESCENDING = "DESC";
     }
 
     public class CareerBuilderCountryCodes

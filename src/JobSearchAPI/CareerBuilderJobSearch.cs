@@ -38,9 +38,36 @@ namespace JobSearchAPI
         }
 
         /// <summary>
+        /// Sets the ordering of the results.  Defaults to Relevance.  Use CareerBuilderSortFields for valid values.
+        /// </summary>
+        public string OrderBy { get; set; }
+
+        /// <summary>
+        /// Sets the sort direction of the results. Defaults to Descending. Use CareerBuilderSortDirection for valid values.
+        /// </summary>
+        public string OrderDirection { get; set; }
+
+        /// <summary>
+        /// Returns only jobs with the provided job title in their title. 
+        /// Use quote-marks if you have multiple words with spaces and want to match the exact string.
+        /// </summary>
+        public string JobTitle { get; set; }
+
+        /// <summary>
+        /// Returns a results set that is related to the supplied keywords. Single value or comma-separated list.
+        /// </summary>
+        public string Keywords { get; set; }
+
+        /// <summary>
+        /// If true, the result set will also contain jobs from child companies of the specified 
+        /// company given in the CompanyName, CompanyNameCSV, or CompanyDID.
+        /// </summary>
+        public bool IncludeCompanyChildren { get; set; }
+
+        /// <summary>
         /// If true, a set of facets describing the search results is returned in addition to the set of results.
         /// </summary>
-        public string UseFacets { get; set; }
+        public bool UseFacets { get; set; }
 
         /// <summary>
         /// *UseFacets must be set to true for this to be considered* 
@@ -250,16 +277,22 @@ namespace JobSearchAPI
             ConcatenateURLParameters(ref url, CareerBuilderURLConstants.LOCATION, this.Location);
             ConcatenateURLParameters(ref url, CareerBuilderURLConstants.BOOLEAN_OPERATOR, this.BooleanOperator);
             ConcatenateURLParameters(ref url, CareerBuilderURLConstants.CATEGORY, this.Category);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANYDID, this.CompanyDID);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANYDIDCSV, this.CompanyDIDCSV);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANYNAME, this.CompanyName);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.EDUCATIONCODE, this.EducationCode);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.EMPTYPE, this.EmployeeType);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACETCATEGORY, this.FacetCategory);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACETCITY, this.FacetCity);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACETCITYSTATE, this.FacetCityState);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACETCOMPANY, this.FacetCompany);
-            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACETSTATE, this.FacetState);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANY_DID, this.CompanyDID);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANY_DID_CSV, this.CompanyDIDCSV);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.COMPANY_NAME, this.CompanyName);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.EDUCATION_CODE, this.EducationCode);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.EMP_TYPE, this.EmployeeType);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_CATEGORY, this.FacetCategory);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_CITY, this.FacetCity);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_CITY_STATE, this.FacetCityState);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_COMPANY, this.FacetCompany);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.FACET_STATE, this.FacetState);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.USE_FACETS, this.UseFacets.ToString());
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.INCLUDE_COMPANY_CHILDREN, this.IncludeCompanyChildren.ToString());
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.JOB_TITLE, this.JobTitle);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.KEYWORDS, this.Keywords);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.ORDER_BY, this.OrderBy);
+            ConcatenateURLParameters(ref url, CareerBuilderURLConstants.ORDER_DIRECTION, this.OrderDirection);
 
             return url;
         }
