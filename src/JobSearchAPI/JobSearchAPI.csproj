@@ -47,6 +47,9 @@
     <Compile Include="CareerBuilderApplicationRequirements.cs" />
     <Compile Include="CareerBuilderBlankApplication.cs" />
     <Compile Include="CareerBuilderCategory.cs" />
+    <Compile Include="CareerBuilderCode.cs" />
+    <Compile Include="CareerBuilderEducationCode.cs" />
+    <Compile Include="CareerBuilderEmployeeType.cs" />
     <Compile Include="CareerBuilderJobDetail.cs" />
     <Compile Include="CareerBuilderJobPosting.cs" />
     <Compile Include="CareerBuilderJobSearch.cs" />

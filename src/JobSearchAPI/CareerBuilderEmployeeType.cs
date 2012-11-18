@@ -6,8 +6,8 @@ using System.Xml.Serialization;
 
 namespace JobSearchAPI
 {
-    [XmlRoot(ElementName = "Category", IsNullable = true)]
-    public class CareerBuilderCategory : CareerBuilderCode
+    [XmlRoot(ElementName = "EmployeeType", IsNullable = true)]
+    public class CareerBuilderEmployeeType : CareerBuilderCode
     {
     }
 }

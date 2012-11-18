@@ -5,7 +5,7 @@ using System.Text;
 
 namespace JobSearchAPI
 {
-    public static class CareerBuilderURLConstants
+    internal static class CareerBuilderURLConstants
     {
         public static readonly string DEVELOPER_KEY = "DeveloperKey";
         public static readonly string ADVANCED_GROUPING_MODE = "AdvancedGroupingMode";
@@ -16,6 +16,14 @@ namespace JobSearchAPI
         public static readonly string COMPANYDID = "CompanyDID";
         public static readonly string COMPANYDIDCSV = "CompanyDIDCSV";
         public static readonly string COMPANYNAME = "CompanyName";
+        public static readonly string EDUCATIONCODE = "EducationCode";
+        public static readonly string EMPTYPE = "EmpType";
+        public static readonly string FACETCOMPANY = "FacetCompany";
+        public static readonly string FACETCATEGORY = "FacetCategory";
+        public static readonly string FACETCITY = "FacetCity";
+        public static readonly string FACETSTATE = "FacetState";
+        public static readonly string FACETCITYSTATE = "FacetCityState";
+        public static readonly string USEFACETS = "UseFacets";
     }
 
     public class CareerBuilderBooleanOperators
