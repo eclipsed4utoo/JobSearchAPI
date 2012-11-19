@@ -56,6 +56,13 @@
     <Compile Include="CareerBuilder\CareerBuilderJobSearch.cs" />
     <Compile Include="CareerBuilder\CareerBuilderPay.cs" />
     <Compile Include="CareerBuilder\CareerBuilderURLConstants.cs" />
+    <Compile Include="FreeLancer\FreeLancerAddress.cs" />
+    <Compile Include="FreeLancer\FreeLancerBidStats.cs" />
+    <Compile Include="FreeLancer\FreeLancerBudget.cs" />
+    <Compile Include="FreeLancer\FreeLancerBuyer.cs" />
+    <Compile Include="FreeLancer\FreeLancerCurrency.cs" />
+    <Compile Include="FreeLancer\FreeLancerProject.cs" />
+    <Compile Include="FreeLancer\FreeLancerRating.cs" />
     <Compile Include="JobSearchBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlHelper.cs" />
