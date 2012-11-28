@@ -307,47 +307,34 @@ namespace JobSearchAPI.CareerBuilder
 
             url += string.Format("?{0}={1}", CareerBuilderURLConstants.DEVELOPER_KEY, _developerKey);
 
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COUNTRY_CODE, this.Country);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.LOCATION, this.Location);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.BOOLEAN_OPERATOR, this.BooleanOperator);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.CATEGORY, this.Category);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_DID, this.CompanyDID);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_DID_CSV, this.CompanyDIDCSV);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_NAME, this.CompanyName);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.EDUCATION_CODE, this.EducationCode);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.EMP_TYPE, this.EmployeeType);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CATEGORY, this.FacetCategory);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CITY, this.FacetCity);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CITY_STATE, this.FacetCityState);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_COMPANY, this.FacetCompany);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_STATE, this.FacetState);
-            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.USE_FACETS, this.UseFacets);
-            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.INCLUDE_COMPANY_CHILDREN, this.IncludeCompanyChildren);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.JOB_TITLE, this.JobTitle);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.KEYWORDS, this.Keywords);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_BY, this.OrderBy);
-            ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_DIRECTION, this.OrderDirection);
-            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.PER_PAGE, this.PerPage);
-            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.PAGE_NUMBER, this.PageNumber);
-            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.POSTED_WITHIN, this.PostedWithinDays);
-            ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.RADIUS, this.Radius);
-            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.RELOCATE_JOBS, this.RelocateJobs);
-            ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.SEARCH_ALL_COUNTRIES, this.SearchAllCountries);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COUNTRY_CODE, this.Country);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.LOCATION, this.Location);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.BOOLEAN_OPERATOR, this.BooleanOperator);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.CATEGORY, this.Category);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_DID, this.CompanyDID);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_DID_CSV, this.CompanyDIDCSV);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.COMPANY_NAME, this.CompanyName);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.EDUCATION_CODE, this.EducationCode);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.EMP_TYPE, this.EmployeeType);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CATEGORY, this.FacetCategory);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CITY, this.FacetCity);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_CITY_STATE, this.FacetCityState);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_COMPANY, this.FacetCompany);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.FACET_STATE, this.FacetState);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.USE_FACETS, this.UseFacets);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.INCLUDE_COMPANY_CHILDREN, this.IncludeCompanyChildren);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.JOB_TITLE, this.JobTitle);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.KEYWORDS, this.Keywords);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_BY, this.OrderBy);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_DIRECTION, this.OrderDirection);
+            URLHelper.ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.PER_PAGE, this.PerPage);
+            URLHelper.ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.PAGE_NUMBER, this.PageNumber);
+            URLHelper.ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.POSTED_WITHIN, this.PostedWithinDays);
+            URLHelper.ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.RADIUS, this.Radius);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.RELOCATE_JOBS, this.RelocateJobs);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.SEARCH_ALL_COUNTRIES, this.SearchAllCountries);
 
             return url;
-        }
-
-        private void ConcatenateURLParameters<T>(ref string url, string parameterName, T parameterValue)
-        {
-            var defaultValue = default(T);
-
-            if (typeof(string) == typeof(T))
-                defaultValue = (T)Convert.ChangeType(string.Empty, typeof(T));
-
-            if (defaultValue == null || parameterValue == null || parameterValue.Equals(defaultValue))
-                return;
-
-            url = string.Format("{0}&{1}={2}", url, parameterName, parameterValue);
         }
 
         private string CreateURLWithDeveloperKey(string url)
