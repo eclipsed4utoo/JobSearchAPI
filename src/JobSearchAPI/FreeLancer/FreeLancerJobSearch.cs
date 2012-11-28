@@ -24,14 +24,85 @@ namespace JobSearchAPI.FreeLancer
         }
 
         /// <summary>
-        /// Used to specify the page number of results.  Defaults to 0, which is the first page of results
+        /// (Optional) - Used to specify the page number of results.  Defaults to 0, which is the first page of results
         /// </summary>
         public int PageNumber { get; set; }
 
         /// <summary>
-        /// Used to specify the number of results returned.  Defaults to 50.
+        /// (Optional) - Used to specify the number of results returned.  Defaults to 50.
         /// </summary>
         public int Count { get; set; }
+
+        /// <summary>
+        /// (Optional) - Used to determine whether to search for Non Public projects only.  Defaults to return only 
+        /// public projects.
+        /// </summary>
+        public bool? NonPublicProjectsOnly { get; set; }
+
+        /// <summary>
+        /// (Optional) - Used to specify the keyword for projects.
+        /// </summary>
+        public string Keyword { get; set; }
+
+        /// <summary>
+        /// (Optional) - Limits the search to only projects by the specified Project Owner ID.
+        /// </summary>
+        public int Owner { get; set; }
+
+        /// <summary>
+        /// (Optional) - Limits the search to only projects by the specified Project Winner ID.
+        /// </summary>
+        public int Winner { get; set; }
+
+        /// <summary>
+        /// (Optional) - Limits the search to only projects in the specified job categories.
+        /// </summary>
+        public List<string> JobCategories { get; set; }
+
+        /// <summary>
+        /// (Optional) - Used to specify whether to limit by Featured or Non-Featured projects.  
+        /// If not specified, returns both Featured and Non-Featured projects.
+        /// </summary>
+        public bool? FeaturedOnly { get; set; }
+
+        /// <summary>
+        /// (Optional) - Used to specify whether to limit by Trial or Non-Trial projects.  If not
+        /// specified, returns both Trial and Non-Trial projects.
+        /// </summary>
+        public bool? TrialOnly { get; set; }
+
+        /// <summary>
+        /// (Optional) - Used to specify whether to limit by "For gold members" or Non-"For gold member
+        /// projects.  If not specified, returns both both "For gold members" and Non-"For gold member" projects.
+        /// </summary>
+        public bool? GoldMembersOnly { get; set; }
+
+        /// <summary>
+        /// (Optional) - Only returns projects where the minimum budget is greater than or equal to the 
+        /// specified value.  Valid values are multiples of 1000.
+        /// </summary>
+        public int MinimumBudget { get; set; }
+
+        /// <summary>
+        /// (Optional) - Only returns projects where the maximum budget is less than or equal to the 
+        /// specified value.  Valid values are multiples of 1000.
+        /// </summary>
+        public int MaximumBudget { get; set; }
+
+        /// <summary>
+        /// (Optional) - Only returns projects ending sooner than specified value.
+        /// </summary>
+        public int BiddingEndsDays { get; set; }
+
+        /// <summary>
+        /// Sets the ordering of the results.  Defaults to Relevance.  Use FreeLancerSortFields for valid values.
+        /// </summary>
+        public string OrderBy { get; set; }
+
+        /// <summary>
+        /// Sets the sort direction of the results. Defaults to Descending. Use FreeLancerSortDirection for valid values.
+        /// </summary>
+        public string OrderDirection { get; set; }
 
         public FreeLancerJobSearch()
         {
@@ -77,9 +148,12 @@ namespace JobSearchAPI.FreeLancer
             URLHelper.ConcatenateURLParameters<int>(ref url, FreeLancerURLConstants.COUNT, this.Count);
             URLHelper.ConcatenateURLParameters<string>(ref url, FreeLancerURLConstants.DEVELOPER_KEY, _developerKey);
 
+            if(this.NonPublicProjectsOnly.HasValue)
+                URLHelper.ConcatenateURLParameters<int>(ref url, FreeLancerURLConstants.NO_PUBLIC_PROJECTS_ONLY, (this.NonPublicProjectsOnly.Value) ? 1 : 0);
+
+            URLHelper.ConcatenateURLParameters<string>(ref url, FreeLancerURLConstants.KEYWORD, this.Keyword);
+
             return url;
         }
-
-        
     }
 }
