@@ -6,10 +6,10 @@ using System.Xml.Serialization;
 
 namespace JobSearchAPI.FreeLancer
 {
-    [XmlRoot(ElementName="currencyDetails", IsNullable=true)]
+    [XmlRoot(ElementName = "currencyDetails", IsNullable = true, Namespace = "http://api.freelancer.com/schemas/xml-0.1")]
     public class FreeLancerCurrency
     {
-        [XmlElement(ElementName="id", IsNullable=true)]
+        [XmlElement(ElementName="id")]
         public int ID { get; set; }
 
         [XmlElement(ElementName = "name", IsNullable = true)]
@@ -21,13 +21,13 @@ namespace JobSearchAPI.FreeLancer
         [XmlElement(ElementName = "sign", IsNullable = true)]
         public string Sign { get; set; }
 
-        [XmlElement(ElementName = "exchangerate", IsNullable = true)]
+        [XmlElement(ElementName = "exchangerate")]
         public double ExchangeRate { get; set; }
 
         [XmlElement(ElementName = "country", IsNullable = true)]
         public string Country { get; set; }
 
-        [XmlElement(ElementName = "seq", IsNullable = true)]
+        [XmlElement(ElementName = "seq")]
         public int Sequence { get; set; }
     }
 }

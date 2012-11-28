@@ -6,13 +6,13 @@ using System.Xml.Serialization;
 
 namespace JobSearchAPI.FreeLancer
 {
-    [XmlRoot(ElementName="bid_stats", IsNullable=true)]
+    [XmlRoot(ElementName = "bid_stats", IsNullable = true, Namespace = "http://api.freelancer.com/schemas/xml-0.1")]
     public class FreeLancerBidStats
     {
-        [XmlElement(ElementName = "count", IsNullable = true)]
+        [XmlElement(ElementName = "count")]
         public int Count { get; set; }
 
-        [XmlElement(ElementName = "avg", IsNullable = true)]
+        [XmlElement(ElementName = "avg")]
         public int AverageBid { get; set; }
     }
 }
