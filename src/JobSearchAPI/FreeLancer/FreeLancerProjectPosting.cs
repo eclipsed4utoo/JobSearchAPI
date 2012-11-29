@@ -9,6 +9,6 @@ namespace JobSearchAPI.FreeLancer
     [XmlRoot(ElementName = "item", IsNullable = true, Namespace = "http://api.freelancer.com/schemas/xml-0.1")]
     public class FreeLancerProjectPosting : FreeLancerProject
     {
-
+        
     }
 }

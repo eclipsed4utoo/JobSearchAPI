@@ -67,6 +67,7 @@
     <Compile Include="FreeLancer\FreeLancerProjectPosting.cs" />
     <Compile Include="FreeLancer\FreeLancerRating.cs" />
     <Compile Include="FreeLancer\FreeLancerURLConstants.cs" />
+    <Compile Include="FreeLancer\FreeLancerUser.cs" />
     <Compile Include="JobSearchBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="URLHelper.cs" />

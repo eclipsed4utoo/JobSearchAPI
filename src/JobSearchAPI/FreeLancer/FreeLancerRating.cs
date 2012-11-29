@@ -10,7 +10,7 @@ namespace JobSearchAPI.FreeLancer
     public class FreeLancerRating
     {
         [XmlElement(ElementName="avg")]
-        public int Average { get; set; }
+        public decimal Average { get; set; }
 
         [XmlElement(ElementName="count")]
         public int Count { get; set; }

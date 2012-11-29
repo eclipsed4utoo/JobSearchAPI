@@ -14,7 +14,7 @@ namespace JobSearchAPI
             if (typeof(string) == typeof(T))
                 defaultValue = (T)Convert.ChangeType(string.Empty, typeof(T));
 
-            if (defaultValue == null || parameterValue == null || parameterValue.Equals(defaultValue))
+            if ((typeof(string) == typeof(T) && defaultValue == null) || parameterValue == null || parameterValue.Equals(defaultValue))
                 return;
 
             url = string.Format("{0}&{1}={2}", url, parameterName, parameterValue);
