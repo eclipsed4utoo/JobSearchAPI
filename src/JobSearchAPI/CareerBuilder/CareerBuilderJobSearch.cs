@@ -12,6 +12,7 @@ using System.IO;
 
 namespace JobSearchAPI.CareerBuilder
 {
+    // API documentation at - http://www.careerbuilder.com/API/Info.aspx
     public class CareerBuilderJobSearch : JobSearchBase
     {
         private string _developerKey = string.Empty;

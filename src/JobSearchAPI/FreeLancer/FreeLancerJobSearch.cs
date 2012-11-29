@@ -8,6 +8,7 @@ using System.Net;
 
 namespace JobSearchAPI.FreeLancer
 {
+    // API documentation at - http://apidocs.getafreelancer.com/
     public class FreeLancerJobSearch : JobSearchBase
     {
         private WebClient client;
