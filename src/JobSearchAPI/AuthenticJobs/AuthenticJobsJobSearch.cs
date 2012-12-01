@@ -192,6 +192,10 @@ namespace JobSearchAPI.AuthenticJobs
             });
         }
 
+        /// <summary>
+        /// Returns a list of locations for companies that are currently advertising positions.
+        /// </summary>
+        /// <returns></returns>
         public Task<List<AuthenticJobsLocation>> GetLocationsAsync()
         {
             return Task.Factory.StartNew<List<AuthenticJobsLocation>>(() =>
@@ -212,6 +216,33 @@ namespace JobSearchAPI.AuthenticJobs
                 }
 
                 return locations;
+            });
+        }
+
+        /// <summary>
+        /// Returns a list of companies that are currently advertising positions.
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<AuthenticJobsCompany>> GetCompaniesAsync()
+        {
+            return Task.Factory.StartNew<List<AuthenticJobsCompany>>(() =>
+            {
+                List<AuthenticJobsCompany> companies = new List<AuthenticJobsCompany>();
+
+                var url = CreateCompanySearchURL();
+                var xmlData = client.DownloadString(url);
+
+                XDocument doc = XDocument.Parse(xmlData);
+
+                var results = (from c in doc.Root.Element("companies").Descendants("company")
+                               select c).ToList();
+
+                foreach (var company in results)
+                {
+                    companies.Add(XmlHelper.Deserialize<AuthenticJobsCompany>(company.ToString()));
+                }
+
+                return companies;
             });
         }
 
@@ -260,6 +291,28 @@ namespace JobSearchAPI.AuthenticJobs
                 URLHelper.ConcatenateURLParameters<double>(ref url, AuthenticJobsURLConstants.END_DATE, ConvertToTimestamp(this.EndDate.Value));
 
            return url;
+        }
+
+        private string CreateCompanySearchURL()
+        {
+            string url = CreateURLWithDeveloperKey(this.JobSearchWebServiceURL);
+
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.METHOD, AuthenticJobsMethods.COMPANY_SEARCH);
+            URLHelper.ConcatenateURLParameters<int?>(ref url, AuthenticJobsURLConstants.CATEGORY, this.JobCategory);
+            URLHelper.ConcatenateURLParameters<int?>(ref url, AuthenticJobsURLConstants.JOB_TYPE, this.JobType);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.SORT_OPTION, this.Sort);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.COMPANY, this.Company);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.LOCATION, this.Location);
+            URLHelper.ConcatenateURLParameters<bool?>(ref url, AuthenticJobsURLConstants.TELECOMMUTING, this.Telecommuting);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.KEYWORDS, this.Keywords);
+
+            if (this.BeginDate.HasValue)
+                URLHelper.ConcatenateURLParameters<double>(ref url, AuthenticJobsURLConstants.BEGIN_DATE, ConvertToTimestamp(this.BeginDate.Value));
+
+            if (this.EndDate.HasValue)
+                URLHelper.ConcatenateURLParameters<double>(ref url, AuthenticJobsURLConstants.END_DATE, ConvertToTimestamp(this.EndDate.Value));
+
+            return url;
         }
 
         private string CreateJobTypeSearchURL()

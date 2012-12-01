@@ -15,6 +15,7 @@ namespace JobSearchAPI.AuthenticJobs
         public string Name { get; set; }
         [XmlAttribute(AttributeName = "url")]
         public string URL { get; set; }
+        [XmlElement(ElementName="location", IsNullable=true)]
         public AuthenticJobsLocation Location { get; set; }
     }
 }
