@@ -8,6 +8,7 @@ using System.Xml.Linq;
 
 namespace JobSearchAPI.AuthenticJobs
 {
+    //API Documentation - http://www.authenticjobs.com/api/documentation/
     public class AuthenticJobsJobSearch : JobSearchBase
     {
         private WebClient client = null;
@@ -164,6 +165,10 @@ namespace JobSearchAPI.AuthenticJobs
             });
         }
 
+        /// <summary>
+        /// Returns a list of current positions, filtered by optional parameters. 
+        /// </summary>
+        /// <returns></returns>
         public Task<List<AuthenticJobsJobPosting>> GetJobsAsync()
         {
             return Task.Factory.StartNew<List<AuthenticJobsJobPosting>>(() =>
@@ -180,11 +185,33 @@ namespace JobSearchAPI.AuthenticJobs
 
                 foreach (var job in results)
                 {
-                    //var j = XmlHelper.Deserialize<AuthenticJobsJobPosting>(job.ToString());
                     jobs.Add(XmlHelper.Deserialize<AuthenticJobsJobPosting>(job.ToString()));
                 }
 
                 return jobs;
+            });
+        }
+
+        public Task<List<AuthenticJobsLocation>> GetLocationsAsync()
+        {
+            return Task.Factory.StartNew<List<AuthenticJobsLocation>>(() =>
+            {
+                List<AuthenticJobsLocation> locations = new List<AuthenticJobsLocation>();
+
+                var url = CreateLocationSearchURL();
+                var xmlData = client.DownloadString(url);
+
+                XDocument doc = XDocument.Parse(xmlData);
+
+                var results = (from c in doc.Root.Element("locations").Descendants("location")
+                               select c).ToList();
+
+                foreach (var location in results)
+                {
+                    locations.Add(XmlHelper.Deserialize<AuthenticJobsLocation>(location.ToString()));
+                }
+
+                return locations;
             });
         }
 
@@ -207,11 +234,32 @@ namespace JobSearchAPI.AuthenticJobs
             if (this.EndDate.HasValue)
                 URLHelper.ConcatenateURLParameters<double>(ref url, AuthenticJobsURLConstants.END_DATE, ConvertToTimestamp(this.EndDate.Value));
 
-            URLHelper.ConcatenateURLParameters<DateTime?>(ref url, AuthenticJobsURLConstants.END_DATE, this.EndDate);
             URLHelper.ConcatenateURLParameters<int?>(ref url, AuthenticJobsURLConstants.PAGE, this.Page);
             URLHelper.ConcatenateURLParameters<int?>(ref url, AuthenticJobsURLConstants.PER_PAGE, this.PerPage);
 
             return url;
+        }
+
+        private string CreateLocationSearchURL()
+        {
+            string url = CreateURLWithDeveloperKey(this.JobSearchWebServiceURL);
+
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.METHOD, AuthenticJobsMethods.LOCATION_SEARCH);
+            URLHelper.ConcatenateURLParameters<int?>(ref url, AuthenticJobsURLConstants.CATEGORY, this.JobCategory);
+            URLHelper.ConcatenateURLParameters<int?>(ref url, AuthenticJobsURLConstants.JOB_TYPE, this.JobType);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.SORT_OPTION, this.Sort);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.COMPANY, this.Company);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.LOCATION, this.Location);
+            URLHelper.ConcatenateURLParameters<bool?>(ref url, AuthenticJobsURLConstants.TELECOMMUTING, this.Telecommuting);
+            URLHelper.ConcatenateURLParameters<string>(ref url, AuthenticJobsURLConstants.KEYWORDS, this.Keywords);
+
+            if (this.BeginDate.HasValue)
+                URLHelper.ConcatenateURLParameters<double>(ref url, AuthenticJobsURLConstants.BEGIN_DATE, ConvertToTimestamp(this.BeginDate.Value));
+
+            if (this.EndDate.HasValue)
+                URLHelper.ConcatenateURLParameters<double>(ref url, AuthenticJobsURLConstants.END_DATE, ConvertToTimestamp(this.EndDate.Value));
+
+           return url;
         }
 
         private string CreateJobTypeSearchURL()
