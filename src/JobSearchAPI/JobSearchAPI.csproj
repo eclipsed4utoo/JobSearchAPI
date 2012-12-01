@@ -45,6 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticJobs\AuthenticJobsCompany.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsCompanyType.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsJobCategory.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsJobPosting.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsJobSearch.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsJobType.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsLocation.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsType.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsURLConstants.cs" />
     <Compile Include="CareerBuilder\CareerBuilderApplicationQuestion.cs" />
     <Compile Include="CareerBuilder\CareerBuilderApplicationRequirements.cs" />
     <Compile Include="CareerBuilder\CareerBuilderBlankApplication.cs" />
