@@ -192,7 +192,7 @@ namespace JobSearchAPI.FreeLancer
             if(this.NonPublicProjectsOnly.HasValue)
                 URLHelper.ConcatenateURLParameters<int?>(ref url, FreeLancerURLConstants.NO_PUBLIC_PROJECTS_ONLY, (this.NonPublicProjectsOnly.Value) ? 1 : 0);
 
-            URLHelper.ConcatenateURLParameters<string>(ref url, FreeLancerURLConstants.KEYWORD, this.Keyword);
+            URLHelper.ConcatenateURLParameters<string>(ref url, FreeLancerURLConstants.KEYWORD, Uri.EscapeDataString(this.Keyword));
             URLHelper.ConcatenateURLParameters<int>(ref url, FreeLancerURLConstants.OWNER, this.Owner);
             URLHelper.ConcatenateURLParameters<int>(ref url, FreeLancerURLConstants.WINNER, this.Winner);
 

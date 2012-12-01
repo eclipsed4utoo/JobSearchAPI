@@ -325,7 +325,7 @@ namespace JobSearchAPI.CareerBuilder
             URLHelper.ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.USE_FACETS, this.UseFacets);
             URLHelper.ConcatenateURLParameters<bool>(ref url, CareerBuilderURLConstants.INCLUDE_COMPANY_CHILDREN, this.IncludeCompanyChildren);
             URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.JOB_TITLE, this.JobTitle);
-            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.KEYWORDS, this.Keywords);
+            URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.KEYWORDS, Uri.EscapeDataString(this.Keywords));
             URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_BY, this.OrderBy);
             URLHelper.ConcatenateURLParameters<string>(ref url, CareerBuilderURLConstants.ORDER_DIRECTION, this.OrderDirection);
             URLHelper.ConcatenateURLParameters<int>(ref url, CareerBuilderURLConstants.PER_PAGE, this.PerPage);
