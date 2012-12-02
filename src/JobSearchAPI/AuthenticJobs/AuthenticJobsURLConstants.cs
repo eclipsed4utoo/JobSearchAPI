@@ -37,4 +37,10 @@ namespace JobSearchAPI.AuthenticJobs
         public static readonly string DATE_POSTED_DESC = "date_posted_desc";
         public static readonly string DATE_POSTED_ASC = "date_posted_asc";
     }
+
+    public static class AuthenticJobsStatus
+    {
+        public static readonly string SUCCESS = "ok";
+        public static readonly string ERROR = "error";
+    }
 }

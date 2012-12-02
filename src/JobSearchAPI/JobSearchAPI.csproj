@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AuthenticJobs\AuthenticJobsCompany.cs" />
     <Compile Include="AuthenticJobs\AuthenticJobsCompanyType.cs" />
+    <Compile Include="AuthenticJobs\AuthenticJobsException.cs" />
     <Compile Include="AuthenticJobs\AuthenticJobsJobCategory.cs" />
     <Compile Include="AuthenticJobs\AuthenticJobsJobPosting.cs" />
     <Compile Include="AuthenticJobs\AuthenticJobsJobSearch.cs" />

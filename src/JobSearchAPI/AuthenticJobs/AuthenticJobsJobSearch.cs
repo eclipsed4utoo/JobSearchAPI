@@ -99,6 +99,8 @@ namespace JobSearchAPI.AuthenticJobs
 
                 XDocument doc = XDocument.Parse(xmlData);
 
+                CheckForError(doc.Root);
+
                 var results = (from c in doc.Root.Element("types").Descendants("type")
                                select c).ToList();
 
@@ -125,6 +127,8 @@ namespace JobSearchAPI.AuthenticJobs
                 var xmlData = client.DownloadString(url);
 
                 XDocument doc = XDocument.Parse(xmlData);
+
+                CheckForError(doc.Root);
 
                 var results = (from c in doc.Root.Element("categories").Descendants("category")
                                select c).ToList();
@@ -153,6 +157,8 @@ namespace JobSearchAPI.AuthenticJobs
 
                 XDocument doc = XDocument.Parse(xmlData);
 
+                CheckForError(doc.Root);
+
                 var results = (from c in doc.Root.Element("company_types").Descendants("company_type")
                                select c).ToList();
 
@@ -179,6 +185,8 @@ namespace JobSearchAPI.AuthenticJobs
                 var xmlData = client.DownloadString(url);
 
                 XDocument doc = XDocument.Parse(xmlData);
+
+                CheckForError(doc.Root);
 
                 var results = (from c in doc.Root.Element("listings").Descendants("listing")
                                select c).ToList();
@@ -207,6 +215,8 @@ namespace JobSearchAPI.AuthenticJobs
 
                 XDocument doc = XDocument.Parse(xmlData);
 
+                CheckForError(doc.Root);
+
                 var results = (from c in doc.Root.Element("locations").Descendants("location")
                                select c).ToList();
 
@@ -234,6 +244,8 @@ namespace JobSearchAPI.AuthenticJobs
 
                 XDocument doc = XDocument.Parse(xmlData);
 
+                CheckForError(doc.Root);
+
                 var results = (from c in doc.Root.Element("companies").Descendants("company")
                                select c).ToList();
 
@@ -244,6 +256,22 @@ namespace JobSearchAPI.AuthenticJobs
 
                 return companies;
             });
+        }
+
+        private void CheckForError(XElement xElement)
+        {
+            var status = xElement.Attribute("stat").Value;
+
+            if (status == AuthenticJobsStatus.ERROR)
+            {
+                var ex = new AuthenticJobsException()
+                {
+                    Code = xElement.Element("err").Attribute("code").Value,
+                    Description = xElement.Element("err").Attribute("desc").Value
+                };
+
+                throw new Exception("AuthenticJobs: " + ex.Description, ex);
+            }
         }
 
         private string CreateJobSearchURL()
