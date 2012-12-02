@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 
 namespace JobSearchAPI.TechSavvy
 {
+    //API Documentation - https://github.com/mattnull/techsavvyapi
     public class TechSavvyJobSearch : JobSearchBase
     {
         private WebClient client = null;
