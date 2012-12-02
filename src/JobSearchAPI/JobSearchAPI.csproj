@@ -67,6 +67,10 @@
     <Compile Include="CareerBuilder\CareerBuilderJobSearch.cs" />
     <Compile Include="CareerBuilder\CareerBuilderPay.cs" />
     <Compile Include="CareerBuilder\CareerBuilderURLConstants.cs" />
+    <Compile Include="Dice\DiceJobDetail.cs" />
+    <Compile Include="Dice\DiceJobPosting.cs" />
+    <Compile Include="Dice\DiceJobSearch.cs" />
+    <Compile Include="Dice\DiceURLConstants.cs" />
     <Compile Include="FreeLancer\FreeLancerAddress.cs" />
     <Compile Include="FreeLancer\FreeLancerBidStats.cs" />
     <Compile Include="FreeLancer\FreeLancerBudget.cs" />
