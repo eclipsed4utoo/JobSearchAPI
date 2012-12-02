@@ -4,12 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 
 namespace JobSearchAPI.Dice
 {
     public class DiceJobSearch : JobSearchBase
     {
         private WebClient client = null;
+
+        public string RootURL
+        {
+            get { return "http://seeker.dice.com"; }
+        }
 
         public override string JobSearchWebServiceURL
         {
@@ -61,6 +67,41 @@ namespace JobSearchAPI.Dice
 
                 var url = CreateURL();
                 var htmlData = client.DownloadString(url);
+
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(htmlData);
+
+                //TODO:  need to add "gold" jobs also.  //tr[@class='gold']
+                // not sure how to include both
+                var jobRows = (from c in doc.DocumentNode.SelectNodes("//tr[@class='STDsrRes' or @class='gold']")
+                            select c).ToList();
+
+                //var goldJobs = (from c in doc.DocumentNode.SelectNodes("//tr[@class='gold']")
+                //                select c).ToList();
+
+                //jobRows.AddRange(goldJobs);
+
+                DiceJobPosting job = null;
+
+                foreach (var row in jobRows)
+                {
+                    job = new DiceJobPosting();
+                    
+                    var titleLinkNode = row.Descendants("a").ElementAt(0);
+                    var companyLinkNode = row.Descendants("a").ElementAt(1);
+                    job.JobTitle = titleLinkNode.InnerText;
+                    job.JobURL = this.RootURL + titleLinkNode.Attributes[0].Value;
+                    job.Company = companyLinkNode.InnerText;
+                    job.CompanyURL = this.RootURL + companyLinkNode.Attributes[0].Value;
+
+                    var locationNode = row.Descendants("td").ElementAt(2);
+                    var date = row.Descendants("td").ElementAt(3);
+
+                    job.Location = locationNode.InnerText;
+                    job.PostedDate = date.InnerText;
+
+                    jobs.Add(job);
+                }
 
                 return jobs;
             });
