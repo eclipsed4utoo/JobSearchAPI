@@ -1,7 +1,7 @@
-JobSearchAPI
+JobSearchAPI Library
 =========
 
-JobSearchAPI is an API wrapper around a number of job search public APIs.  Currently, JobSearchAPI supports:
+JobSearchAPI is an API library that makes it easier to consume a number of job search public APIs.  Currently, JobSearchAPI supports:
 
 * [CareerBuilder]
 * [Tech Savvy]
