@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace JobSearchAPI.LinkUp
 {
@@ -128,6 +129,18 @@ namespace JobSearchAPI.LinkUp
                 string url = CreateURL();
                 var xmlData = _client.DownloadString(url);
 
+                XDocument doc = XDocument.Parse(xmlData);
+
+                var results = (from c in doc.Root.Element("jobs").Descendants("job")
+                               select c).ToList();
+
+                //TODO: get sponsored listings
+
+                foreach (var job in results)
+                {
+                    jobs.Add(XmlHelper.Deserialize<LinkUpJobPosting>(job.ToString()));
+                }
+
                 return jobs;
             });
         }
@@ -136,7 +149,24 @@ namespace JobSearchAPI.LinkUp
         {
             string url = CreateURLWithRequiredParameters(this.JobSearchWebServiceURL);
 
-
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.COMPANY, this.Company);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.FILTER_TYPE, this.FilterType);
+            URLHelper.ConcatenateURLParameters<int>(ref url, LinkUpURLConstants.DESC_LENGTH, this.DescriptionLength);
+            URLHelper.ConcatenateURLParameters<int>(ref url, LinkUpURLConstants.DISTANCE, this.Distance);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, LinkUpURLConstants.GROUP_COMPANIES, this.GroupCompanies);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.HIGHLIGHT_PARAM, this.HighlightParameter);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.KEYWORD, this.Keywords);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.LOCATION, this.Location);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.LIST, this.List);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, LinkUpURLConstants.REQUIRE_LOCATION, this.RequireLocation);
+            URLHelper.ConcatenateURLParameters<int>(ref url, LinkUpURLConstants.PAGE, this.Page);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.SORT, this.Sort);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, LinkUpURLConstants.INCLUDE_ORGANIC, this.IncludeOrganic);
+            URLHelper.ConcatenateURLParameters<int>(ref url, LinkUpURLConstants.PER_PAGE, this.PerPage);
+            URLHelper.ConcatenateURLParameters<bool>(ref url, LinkUpURLConstants.INCLUDE_ADS, this.IncludeAds);
+            URLHelper.ConcatenateURLParameters<int>(ref url, LinkUpURLConstants.SPONSORED_PER_PAGE, this.SponsoredPerPage);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.TAGS, this.Tags);
+            URLHelper.ConcatenateURLParameters<string>(ref url, LinkUpURLConstants.TIME_FRAME, this.TimeFrame);
 
             return url;
         }
