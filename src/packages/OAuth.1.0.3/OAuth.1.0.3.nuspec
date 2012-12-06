@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>OAuth</id>
+    <version>1.0.3</version>
+    <title>OAuth</title>
+    <authors>Daniel Crenna</authors>
+    <owners>Daniel Crenna</owners>
+    <licenseUrl>https://github.com/danielcrenna/oauth/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/danielcrenna/oauth</projectUrl>
+    <iconUrl>http://apitize.com.s3.amazonaws.com/logo_oauth.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An implementation of OAuth 1.0a for .NET</description>
+    <summary>An implementation of OAuth 1.0a for .NET</summary>
+    <copyright>(c) 2011 Daniel Crenna</copyright>
+    <tags>oauth</tags>
+  </metadata>
+</package>

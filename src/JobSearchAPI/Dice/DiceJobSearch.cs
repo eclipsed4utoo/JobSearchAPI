@@ -34,11 +34,6 @@ namespace JobSearchAPI.Dice
         public int DaysBack { get; set; }
 
         /// <summary>
-        /// Keywords to limit the results
-        /// </summary>
-        public string Keywords { get; set; }
-
-        /// <summary>
         /// Specifies the location of job postings.  This can be City, State, or Zip Code.
         /// </summary>
         public string Location { get; set; }

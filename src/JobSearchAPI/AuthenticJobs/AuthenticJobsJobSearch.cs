@@ -12,7 +12,6 @@ namespace JobSearchAPI.AuthenticJobs
     public class AuthenticJobsJobSearch : JobSearchBase
     {
         private WebClient client = null;
-        private string _developerKey = string.Empty;
 
         public override string JobSearchWebServiceURL
         {
@@ -20,8 +19,8 @@ namespace JobSearchAPI.AuthenticJobs
         }
 
         public AuthenticJobsJobSearch(string developerKey)
+            : base(developerKey)
         {
-            _developerKey = developerKey;
             client = new WebClient();
             this.Sort = AuthenticJobsSortOptions.DATE_POSTED_DESC;
         }
@@ -57,12 +56,6 @@ namespace JobSearchAPI.AuthenticJobs
         /// Set to true for only telecommuting jobs
         /// </summary>
         public bool? Telecommuting { get; set; }
-
-        /// <summary>
-        /// Keywords to look for in the title or description of the job posting. 
-        /// Separate multiple keywords with commas. Multiple keywords will be treated as an OR
-        /// </summary>
-        public string Keywords { get; set; }
 
         /// <summary>
         /// Listings posted before this time will not be returned.

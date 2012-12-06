@@ -24,12 +24,7 @@ namespace JobSearchAPI.TechSavvy
         /// Limits the job search to the specified number of results. Defaults to 50.
         /// </summary>
         public int Limit { get; set; }
-
-        /// <summary>
-        /// Keywords to limit the job search
-        /// </summary>
-        public string Keywords { get; set; }
-
+        
         public TechSavvyJobSearch()
         {
             client = new WebClient();

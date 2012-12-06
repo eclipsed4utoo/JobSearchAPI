@@ -12,7 +12,6 @@ namespace JobSearchAPI.FreeLancer
     public class FreeLancerJobSearch : JobSearchBase
     {
         private WebClient client;
-        private string _developerKey;
 
         public override string JobSearchWebServiceURL
         {
@@ -43,11 +42,6 @@ namespace JobSearchAPI.FreeLancer
         /// (Optional) - Used to determine whether to search for Non Public projects only.  Defaults to return all projects.
         /// </summary>
         public bool? NonPublicProjectsOnly { get; set; }
-
-        /// <summary>
-        /// (Optional) - Used to specify the keyword for projects.
-        /// </summary>
-        public string Keyword { get; set; }
 
         /// <summary>
         /// (Optional) - Limits the search to only projects by the specified Project Owner ID.
@@ -192,7 +186,7 @@ namespace JobSearchAPI.FreeLancer
             if(this.NonPublicProjectsOnly.HasValue)
                 URLHelper.ConcatenateURLParameters<int?>(ref url, FreeLancerURLConstants.NO_PUBLIC_PROJECTS_ONLY, (this.NonPublicProjectsOnly.Value) ? 1 : 0);
 
-            URLHelper.ConcatenateURLParameters<string>(ref url, FreeLancerURLConstants.KEYWORD, Uri.EscapeDataString(this.Keyword));
+            URLHelper.ConcatenateURLParameters<string>(ref url, FreeLancerURLConstants.KEYWORD, Uri.EscapeDataString(this.Keywords));
             URLHelper.ConcatenateURLParameters<int>(ref url, FreeLancerURLConstants.OWNER, this.Owner);
             URLHelper.ConcatenateURLParameters<int>(ref url, FreeLancerURLConstants.WINNER, this.Winner);
 

@@ -15,7 +15,6 @@ namespace JobSearchAPI.CareerBuilder
     // API documentation at - http://www.careerbuilder.com/API/Info.aspx
     public class CareerBuilderJobSearch : JobSearchBase
     {
-        private string _developerKey = string.Empty;
         private WebClient client = null;
 
         public override string JobSearchWebServiceURL
@@ -86,11 +85,6 @@ namespace JobSearchAPI.CareerBuilder
         /// Use quote-marks if you have multiple words with spaces and want to match the exact string.
         /// </summary>
         public string JobTitle { get; set; }
-
-        /// <summary>
-        /// Returns a results set that is related to the supplied keywords. Single value or comma-separated list.
-        /// </summary>
-        public string Keywords { get; set; }
 
         /// <summary>
         /// If true, the result set will also contain jobs from child companies of the specified 
@@ -187,6 +181,7 @@ namespace JobSearchAPI.CareerBuilder
         public string Category { get; set; }
 
         public CareerBuilderJobSearch(string developerKey)
+            : base(developerKey)
         {
             if (string.IsNullOrWhiteSpace(developerKey))
                 throw new ArgumentException("Developer Key is empty.", "developerKey");

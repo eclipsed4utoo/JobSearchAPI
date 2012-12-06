@@ -39,6 +39,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OAuth">
+      <HintPath>..\packages\OAuth.1.0.3\lib\net40\OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -86,6 +89,9 @@
     <Compile Include="FreeLancer\FreeLancerURLConstants.cs" />
     <Compile Include="FreeLancer\FreeLancerUser.cs" />
     <Compile Include="JobSearchBase.cs" />
+    <Compile Include="LinkUp\LinkUpJobPosting.cs" />
+    <Compile Include="LinkUp\LinkUpJobSearch.cs" />
+    <Compile Include="LinkUp\LinkUpURLConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TechSavvy\TechSavvyJobPosting.cs" />
     <Compile Include="TechSavvy\TechSavvyJobSearch.cs" />
@@ -96,7 +102,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ODesk\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
